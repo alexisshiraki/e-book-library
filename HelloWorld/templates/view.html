@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}User - {{ user.name }}{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>{{ user.name }}</h2>
+    <div style="margin: 20px 0; padding: 15px; background: #f0f0f0; border-radius: 5px;">
+        <p><strong>ID:</strong> {{ user.id }}</p>
+        <p><strong>Name:</strong> {{ user.name }}</p>
+        <p><strong>Age:</strong> {{ user.age if user.age else 'Not specified' }}</p>
+    </div>
+    
+    <div>
+        <a href="{{ url_for('edit', user_id=user.id) }}" class="btn">Edit</a>
+        <form method="POST" action="{{ url_for('delete', user_id=user.id) }}" style="display: inline;">
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this user?');">Delete</button>
+        </form>
+        <a href="{{ url_for('index') }}" class="btn">Back to List</a>
+    </div>
+</div>
+{% endblock %}

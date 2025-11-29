@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Edit User - {{ user.name }}{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2>Edit User: {{ user.name }}</h2>
+    <form method="POST">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required value="{{ user.name }}">
+        </div>
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" value="{{ user.age if user.age else '' }}">
+        </div>
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn btn-success">Save Changes</button>
+            <a href="{{ url_for('view_user', user_id=user.id) }}" class="btn">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

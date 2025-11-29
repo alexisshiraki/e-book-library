@@ -190,6 +190,33 @@ $ python .\crud.py filter --min-age 30
 - Alembic `table already exists` when running `upgrade`:
 	- This happens if you previously created tables manually. Use `alembic stamp head` to record the migration state without reapplying SQL, or drop the existing tables before running migrations in a fresh environment.
 
+**Flask Web UI**
+
+A web interface is provided in `app.py` for managing users through a browser. After installing dependencies, start the web server:
+
+```powershell
+python .\app.py
+```
+
+Then visit `http://localhost:5000` in your browser. The interface provides:
+
+- **List users** (paginated, 10 per page) — view all users with links to edit/delete
+- **View user** — see details for a specific user
+- **Create user** — form to add a new user (name required, age optional)
+- **Edit user** — update existing user name and age
+- **Delete user** — remove a user (with confirmation)
+
+Example workflow:
+1. Visit `http://localhost:5000` to see the list (initially empty)
+2. Click "+ New User" to create one
+3. Enter name "Alice", age "30", submit
+4. See Alice in the list
+5. Click "Alice" name link to view details
+6. Click "Edit" to change her age to "31"
+7. Back on list, click "Delete" to remove her (confirm when prompted)
+
+The web app uses the same SQLAlchemy ORM and CRUD helpers as the CLI, so data created via the web UI is accessible via CLI and vice versa.
+
 **One-line PowerShell setup**
 
 Create and activate a virtualenv, upgrade pip, and install requirements in one line (PowerShell):

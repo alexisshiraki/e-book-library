@@ -1,6 +1,8 @@
 # Runtime dependencies for this workspace
 # - SQLAlchemy: ORM used by the example in `db_sqlalchemy.py`
 SQLAlchemy
+# - Flask: Web framework for `app.py` web UI
+Flask
 
 # Test/CI dependencies
 pytest
