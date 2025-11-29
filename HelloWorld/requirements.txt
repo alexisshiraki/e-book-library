@@ -1,0 +1,7 @@
+# Runtime dependencies for this workspace
+# - SQLAlchemy: ORM used by the example in `db_sqlalchemy.py`
+SQLAlchemy
+
+# Test/CI dependencies
+pytest
+
