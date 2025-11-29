@@ -217,6 +217,32 @@ Example workflow:
 
 The web app uses the same SQLAlchemy ORM and CRUD helpers as the CLI, so data created via the web UI is accessible via CLI and vice versa.
 
+**PostgreSQL Support**
+
+The application supports both SQLite (default) and PostgreSQL. See `POSTGRES_GUIDE.md` for detailed setup instructions.
+
+Quick start with PostgreSQL:
+
+```powershell
+# Set database URL (replace with your credentials)
+$env:DATABASE_URL = "postgresql://user:password@localhost:5432/myapp"
+
+# Run Flask web app with PostgreSQL
+python app.py
+
+# Run CRUD CLI with PostgreSQL
+python crud.py list
+
+# Run tests with PostgreSQL
+pytest tests/test_integration.py -v
+```
+
+Key differences:
+- **SQLite (default):** No setup required, uses `data.db` file
+- **PostgreSQL:** Set `DATABASE_URL` environment variable, requires server setup
+
+Integration tests (`tests/test_integration.py`) work with both databases using the same transactional test isolation pattern.
+
 **One-line PowerShell setup**
 
 Create and activate a virtualenv, upgrade pip, and install requirements in one line (PowerShell):

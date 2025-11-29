@@ -79,14 +79,10 @@ def filter_users_by_age(session, min_age: Optional[int] = None, max_age: Optiona
 
 
 def demo():
-    """Small interactive demo that uses `data.db` file-based DB."""
-    from sqlalchemy import create_engine
-    from sqlalchemy.orm import sessionmaker
-    from db_sqlalchemy import Base
+    """Small interactive demo that uses configured database (SQLite or PostgreSQL)."""
+    from db_config import init_db
 
-    engine = create_engine('sqlite:///data.db', echo=False, future=True)
-    Base.metadata.create_all(engine)
-    Session = sessionmaker(bind=engine, future=True)
+    engine, Session = init_db()
     session = Session()
 
     alice = create_user(session, 'Alice Demo', 28)
@@ -120,9 +116,7 @@ def demo():
 
 def cli():
     import argparse
-    from sqlalchemy import create_engine
-    from sqlalchemy.orm import sessionmaker
-    from db_sqlalchemy import Base
+    from db_config import init_db
 
     parser = argparse.ArgumentParser(description='CRUD demo and helpers')
     sub = parser.add_subparsers(dest='cmd')
@@ -165,10 +159,8 @@ def cli():
 
     args = parser.parse_args()
 
-    # create DB session on data.db
-    engine = create_engine('sqlite:///data.db', echo=False, future=True)
-    Base.metadata.create_all(engine)
-    Session = sessionmaker(bind=engine, future=True)
+    # Initialize database (uses DATABASE_URL env var or SQLite by default)
+    engine, Session = init_db()
     session = Session()
 
     try:

@@ -2,21 +2,22 @@
 
 Run with: python app.py
 Then visit http://localhost:5000 in your browser.
+
+Database configuration:
+- Default: SQLite (sqlite:///data.db)
+- PostgreSQL: Set DATABASE_URL environment variable
+  Example: $env:DATABASE_URL = "postgresql://user:pass@localhost:5432/dbname"
 """
 from flask import Flask, render_template, request, redirect, url_for, flash
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-
-from db_sqlalchemy import Base, User
+from db_config import init_db
+from db_sqlalchemy import User
 from crud import create_user, get_user, update_user_age, delete_user, list_users, paginate_users
 
 app = Flask(__name__)
 app.secret_key = 'dev-secret-key'
 
-# Create DB engine and session factory
-engine = create_engine('sqlite:///data.db', echo=False, future=True)
-Base.metadata.create_all(engine)
-Session = sessionmaker(bind=engine, future=True)
+# Initialize database with config module (supports SQLite and PostgreSQL)
+engine, Session = init_db()
 
 
 def get_session():

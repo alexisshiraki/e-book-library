@@ -1,6 +1,8 @@
 # Runtime dependencies for this workspace
 # - SQLAlchemy: ORM used by the example in `db_sqlalchemy.py`
 SQLAlchemy
+# - psycopg2-binary: PostgreSQL driver for SQLAlchemy
+psycopg2-binary
 # - Flask: Web framework for `app.py` web UI
 Flask
 
